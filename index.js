@@ -67,13 +67,30 @@ async function getMainTankStats(bodyData, tankArray) {
 
 function printFromArrayInObject(objectName, giveArrayName){
   let tempArray = [];
+  let numOfPremiums = 0;
+  let numOfTXPre = 0;
+  let numOfTX = 0;
   for(let i=0; i<objectName[giveArrayName].length; i++){
     tempArray.push('Tier ' + objectName[giveArrayName][i].tier + ' '+ objectName[giveArrayName][i].name);
     if(objectName[giveArrayName][i].is_premium){
+      numOfPremiums++;
       tempArray[tempArray.length-1] = '\033[33m'+tempArray[tempArray.length-1]+'\033[39m';
+      if(objectName[giveArrayName][i].tier==10){
+        numOfTXPre++;
+      }
+    }
+    else if(objectName[giveArrayName][i].tier==10){
+      numOfTX++;
     }
   };
-  tempArray.sort();
+  tempArray.sort().reverse();
+  let preArray = tempArray.slice(tempArray.length-numOfPremiums);
+  tempArray.splice(tempArray.length-numOfPremiums, numOfPremiums);
+  preArray = preArray.slice(preArray.length-numOfTXPre, preArray.numOfTXPre).concat(preArray);
+  preArray.splice(preArray.length-numOfTXPre, numOfTXPre);
+  tempArray = tempArray.slice(tempArray.length-numOfTX).concat(tempArray);
+  tempArray.splice(tempArray.length-numOfTX, numOfTX);
+  tempArray = preArray.concat(tempArray);
   for(let i=0; i<tempArray.length; i++){
     console.log(tempArray[i]);
   };
