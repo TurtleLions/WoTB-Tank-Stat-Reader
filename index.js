@@ -20,51 +20,24 @@ let tankA = {
   id = await userNameToID(name);
   bodyData = await getAccountTanks(id);
   await getMainTankStats(bodyData, tankA);
+  console.log('\nAmerican');
   printFromArrayInObject(tankA, 'usa');
+  console.log('\British');
   printFromArrayInObject(tankA, 'uk');
-  printFromArrayInObject(tankA, 'germany');
-  printFromArrayInObject(tankA, 'ussr');
-  printFromArrayInObject(tankA, 'france');
-  printFromArrayInObject(tankA, 'japan');
-  printFromArrayInObject(tankA, 'china');
-  printFromArrayInObject(tankA, 'european');
-  printFromArrayInObject(tankA, 'other');
-  /**console.log('\nAmerican');
-  for(let i = 0; i<tankA.usa.length; i++){
-    console.log(tankA.usa[i].name);
-  };
-  console.log('\nBritish');
-  for(let i = 0; i<tankA.uk.length; i++){
-    console.log(tankA.uk[i].name);
-  };
   console.log('\nGerman');
-  for(let i = 0; i<tankA.germany.length; i++){
-    console.log(tankA.germany[i].name);
-  };
+  printFromArrayInObject(tankA, 'germany');
   console.log('\nSoviet');
-  for(let i = 0; i<tankA.ussr.length; i++){
-    console.log(tankA.ussr[i].name);
-  };
+  printFromArrayInObject(tankA, 'ussr');
   console.log('\nFrench');
-  for(let i = 0; i<tankA.france.length; i++){
-    console.log(tankA.france[i].name);
-  };
+  printFromArrayInObject(tankA, 'france');
   console.log('\nJapanese');
-  for(let i = 0; i<tankA.japan.length; i++){
-    console.log(tankA.japan[i].name);
-  };
+  printFromArrayInObject(tankA, 'japan');
   console.log('\nChinese');
-  for(let i = 0; i<tankA.china.length; i++){
-    console.log(tankA.china[i].name);
-  };
+  printFromArrayInObject(tankA, 'china');
   console.log('\nEuropean');
-  for(let i = 0; i<tankA.european.length; i++){
-    console.log(tankA.european[i].name);
-  };
+  printFromArrayInObject(tankA, 'european');
   console.log('\nHybrid');
-  for(let i = 0; i<tankA.other.length; i++){
-    console.log(tankA.other[i].name);
-  };**/
+  printFromArrayInObject(tankA, 'other');
 })();
 
 
@@ -93,7 +66,15 @@ async function getMainTankStats(bodyData, tankArray) {
 }
 
 function printFromArrayInObject(objectName, giveArrayName){
-  for(let i=0; i<objectName.giveArrayName.length; i++){
-    console.log(objectName.giveArrayName[i].name);
+  let tempArray = [];
+  for(let i=0; i<objectName[giveArrayName].length; i++){
+    tempArray.push('Tier ' + objectName[giveArrayName][i].tier + ' '+ objectName[giveArrayName][i].name);
+    if(objectName[giveArrayName][i].is_premium){
+      tempArray[tempArray.length-1] = '\033[33m'+tempArray[tempArray.length-1]+'\033[39m';
+    }
+  };
+  tempArray.sort();
+  for(let i=0; i<tempArray.length; i++){
+    console.log(tempArray[i]);
   };
 }
