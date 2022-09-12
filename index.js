@@ -1,4 +1,3 @@
-//1041303316
 const fetch = require('node-fetch');
 const prompt = require('prompt-sync')();
 const name = prompt('Enter your username: ');
